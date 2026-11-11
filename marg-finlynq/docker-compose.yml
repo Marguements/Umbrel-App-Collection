@@ -1,0 +1,45 @@
+version: "3.7"
+
+# Adapted from upstream https://github.com/finlynq/finlynq/blob/main/docker-compose.yml
+# Changes for Umbrel: app_proxy, secrets from exports.sh, data under APP_DATA_DIR,
+# pinned image digests.
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<service-name>_1
+      APP_HOST: marg-finlynq_app_1
+      APP_PORT: 3000
+      # Finlynq has its own login; MCP/OAuth clients must reach it without Umbrel auth.
+      PROXY_AUTH_ADD: "false"
+
+  app:
+    image: ghcr.io/finlynq/finlynq:3.6.0@sha256:4881868614242683f2fd180062bd1efc85d54d935444e2d0ef27942ff2fd17a5
+    restart: on-failure
+    environment:
+      DATABASE_URL: postgresql://pf:${APP_FINLYNQ_DB_PASSWORD}@marg-finlynq_db_1:5432/pf
+      # Used for OAuth issuer metadata (MCP connectors) and email links.
+      APP_URL: http://${DEVICE_DOMAIN_NAME}:3010
+      PF_JWT_SECRET: ${APP_FINLYNQ_JWT_SECRET}
+      PF_PEPPER: ${APP_FINLYNQ_PEPPER}
+      PF_STAGING_KEY: ${APP_FINLYNQ_STAGING_KEY}
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine@sha256:aa6cb33cf4c19c765cefcf48d96176258800870a9a1e930ad126200f9d825139
+    restart: on-failure
+    stop_grace_period: 1m
+    environment:
+      POSTGRES_USER: pf
+      POSTGRES_DB: pf
+      POSTGRES_PASSWORD: ${APP_FINLYNQ_DB_PASSWORD}
+    volumes:
+      - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pf -d pf"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

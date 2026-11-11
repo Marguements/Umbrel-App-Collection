@@ -1,0 +1,40 @@
+manifestVersion: 1.1
+id: marg-finlynq
+category: finance
+name: Finlynq
+version: "3.6.0"
+tagline: Open-source personal finance with a built-in MCP server
+icon: https://raw.githubusercontent.com/finlynq/finlynq/main/mobile/store/store-icon-512.png
+description: >-
+  Finlynq is an open-source personal finance app: accounts, transactions,
+  budgets, investments, loans and reports, with sensitive fields encrypted at
+  rest using a per-user key derived from your password.
+
+
+  It ships a first-party Model Context Protocol (MCP) server at /api/mcp so AI
+  assistants like Claude can read and manage your finances.
+
+
+  Note: the home page is Finlynq's bundled landing page. Register and log in
+  at /cloud — accounts are created on this Umbrel, not on finlynq.com.
+  Umbrel's login is disabled for this app because Finlynq has its own auth
+  and MCP/OAuth clients must reach it directly.
+
+
+  Keep your Finlynq password safe: there is no email reset configured and your
+  data is encrypted with a key derived from it.
+developer: Finlynq
+website: https://finlynq.com
+dependencies: []
+repo: https://github.com/finlynq/finlynq
+support: https://github.com/finlynq/finlynq/issues
+port: 3010
+gallery: []
+path: "/cloud"
+defaultUsername: ""
+defaultPassword: ""
+releaseNotes: >-
+  Finlynq v3.6.0: budgets as a cash-flow plan, budget rules, and widgets on
+  your phone. Full notes: https://github.com/finlynq/finlynq/releases/tag/v3.6.0
+submitter: Marguements
+submission: https://github.com/Marguements/Umbrel-App-Collection
