@@ -1,0 +1,76 @@
+version: "3.7"
+
+# Adapted from upstream https://github.com/bookorbit/bookorbit/blob/main/docker-compose.yml
+# Changes for Umbrel: app_proxy, secrets from exports.sh / APP_PASSWORD, data under
+# APP_DATA_DIR, books in the Umbrel Home "Books" folder, pinned image digests.
+# The optional kokoro / read-aloud-worker profiles are omitted.
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<service-name>_1
+      APP_HOST: marg-bookorbit_app_1
+      APP_PORT: 3000
+      # BookOrbit has its own login; OPDS, KOReader, Kobo and the mobile app need direct access.
+      PROXY_AUTH_ADD: "false"
+
+  app:
+    image: ghcr.io/bookorbit/bookorbit:3.7.0@sha256:0d5f4a31576a2bcd96afa77b8eac75c3b8df395f0f9b9215995de59236f22b95
+    restart: on-failure
+    init: true
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      POSTGRES_HOST: marg-bookorbit_postgres_1
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: bookorbit
+      POSTGRES_PASSWORD: ${APP_BOOKORBIT_DB_PASSWORD}
+      POSTGRES_DB: bookorbit
+      JWT_SECRET: ${APP_BOOKORBIT_JWT_SECRET}
+      SETUP_BOOTSTRAP_TOKEN: ${APP_PASSWORD}
+      APP_URL: http://${DEVICE_DOMAIN_NAME}:3020
+      CLIENT_URL: http://${DEVICE_DOMAIN_NAME}:3020
+      TZ: UTC
+      PUID: 1000
+      PGID: 1000
+      NODE_MAX_OLD_SPACE_SIZE: auto
+      LIBRARY_BROWSE_ROOT: /books
+      DISABLE_LOCAL_AUTH: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ${UMBREL_ROOT}/home/Books:/books
+      - ${APP_DATA_DIR}/data/app:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+
+  postgres:
+    image: pgvector/pgvector:pg18@sha256:c29f30688a9ad961691bdf0ec1650717cc132a5814619d80f80463d6e4c42e47
+    restart: on-failure
+    stop_grace_period: 1m
+    environment:
+      POSTGRES_USER: bookorbit
+      POSTGRES_PASSWORD: ${APP_BOOKORBIT_DB_PASSWORD}
+      POSTGRES_DB: bookorbit
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ${APP_DATA_DIR}/data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s

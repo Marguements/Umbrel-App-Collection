@@ -1,0 +1,35 @@
+manifestVersion: 1.1
+id: marg-bookorbit
+category: media
+name: BookOrbit
+version: "3.7.0"
+tagline: Your reading space for ebooks, audiobooks and comics
+icon: https://raw.githubusercontent.com/bookorbit/bookorbit/main/docs/images/bookorbit-icon.png
+description: >-
+  BookOrbit is a self-hosted library and reader for ebooks, audiobooks and
+  comics, with a web reader, highlights and annotations, reading statistics
+  and goals, OPDS, Send-to-Kindle, KOReader and Kobo sync, Hardcover,
+  Readwise and StoryGraph sync, multi-user support and OIDC SSO.
+
+
+  First-time setup: open the app and complete the setup wizard. When it asks
+  for the setup token, use the password Umbrel shows for this app.
+
+
+  Your books live in the Umbrel Files app under Home > Books (mounted at
+  /books in BookOrbit). Create a library pointing at /books.
+developer: BookOrbit
+website: https://bookorbit.app
+dependencies: []
+repo: https://github.com/bookorbit/bookorbit
+support: https://github.com/bookorbit/bookorbit/issues
+port: 3020
+gallery: []
+path: ""
+defaultUsername: ""
+deterministicPassword: true
+releaseNotes: >-
+  BookOrbit v3.7.0: merge duplicate books and link editions, and Year in
+  Review on iOS. Full notes: https://github.com/bookorbit/bookorbit/releases/tag/v3.7.0
+submitter: Marguements
+submission: https://github.com/Marguements/Umbrel-App-Collection

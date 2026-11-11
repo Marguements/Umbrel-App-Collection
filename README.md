@@ -13,6 +13,7 @@ A personal [Umbrel community app store](https://github.com/getumbrel/umbrel-comm
 | App | Port | Notes |
 |---|---|---|
 | [Finlynq](marg-finlynq) | 3010 | Personal finance with a built-in MCP server. Register at `/cloud`. |
+| [BookOrbit](marg-bookorbit) | 3020 | Ebook, audiobook and comic library and reader. The setup token is the password Umbrel shows. Books go in Home > Books. |
 
 ## Adding an app
 
