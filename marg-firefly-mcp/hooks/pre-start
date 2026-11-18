@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# The container runs as 1000:1000 and needs a writable /data for the OAuth
+# state, plus a token file the user fills in after setting up Firefly III.
+DATA_DIR="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")/data"
+
+mkdir -p "${DATA_DIR}/firefly-mcp-auth"
+touch "${DATA_DIR}/firefly-token"
+chmod 600 "${DATA_DIR}/firefly-token"
+chown -R 1000:1000 "${DATA_DIR}"

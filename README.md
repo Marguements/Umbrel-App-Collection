@@ -14,6 +14,7 @@ A personal [Umbrel community app store](https://github.com/getumbrel/umbrel-comm
 |---|---|---|
 | [Finlynq](marg-finlynq) | 3010 | Personal finance with a built-in MCP server. Register at `/cloud`. |
 | [BookOrbit](marg-bookorbit) | 3020 | Ebook, audiobook and comic library and reader. The setup token is the password Umbrel shows. Books go in Home > Books. |
+| [Firefly III MCP](marg-firefly-mcp) | 3040 | MCP server for the official Firefly III app, so Claude can use your finances. Needs a Firefly personal access token saved to `data/firefly-token`, plus public HTTPS (e.g. Cloudflare Tunnel). Sign in with the password Umbrel shows. |
 
 ## Adding an app
 

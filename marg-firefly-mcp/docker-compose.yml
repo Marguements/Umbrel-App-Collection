@@ -1,0 +1,59 @@
+version: "3.7"
+
+# MCP server for Firefly III: https://github.com/yakupemreyerli/mcp-firefly-iii
+# Talks to the official Umbrel "Firefly III" app (firefly-iii_server_1) over the
+# Umbrel app network and exposes an OAuth 2.1-protected MCP endpoint for Claude.
+# Changes for Umbrel: app_proxy, password from APP_PASSWORD, data under
+# APP_DATA_DIR, Firefly token read from a file (it can't exist until Firefly III is set up).
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<service-name>_1
+      APP_HOST: marg-firefly-mcp_server_1
+      APP_PORT: 3000
+      # The MCP server has its own OAuth login, and Claude must reach it directly.
+      PROXY_AUTH_ADD: "false"
+
+  server:
+    # TODO: pin to a digest once known: tag@sha256:...
+    image: ghcr.io/yakupemreyerli/mcp-firefly-iii:v1.2.1
+    restart: on-failure
+    user: "1000:1000"
+    environment:
+      # Firefly III's API, reached directly on the Umbrel network.
+      FIREFLY_API_URL: http://firefly-iii_server_1:8080/api/v1
+      # Listen on all interfaces so app_proxy can reach it (default is 127.0.0.1).
+      MCP_HTTP_HOST: 0.0.0.0
+      MCP_HTTP_PORT: 3000
+      # Embedded OAuth 2.1 server. The password is the one Umbrel shows for this app.
+      MCP_AUTH_PASSWORD: ${APP_PASSWORD}
+      # Public HTTPS origin Claude connects to (bare origin, no path). It must match
+      # the hostname your Cloudflare Tunnel serves. Edit this if you use another hostname.
+      MCP_RESOURCE_URL: https://firefly-mcp.arguelab.net
+      MCP_AUTH_STATE_DIR: /data/firefly-mcp-auth
+      MCP_UPDATE_CHECK: "false"
+    command:
+      - sh
+      - -c
+      - |
+        if [ ! -s /data/firefly-token ]; then
+          echo "Missing Firefly III token: put a Personal Access Token in <app data>/data/firefly-token, then restart this app."
+          sleep 30
+          exit 1
+        fi
+        FIREFLY_API_TOKEN="$$(tr -d ' \n\r' < /data/firefly-token)"
+        export FIREFLY_API_TOKEN
+        exec node dist/http.js
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/health >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

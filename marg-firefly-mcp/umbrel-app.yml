@@ -1,0 +1,42 @@
+manifestVersion: 1.1
+id: marg-firefly-mcp
+category: finance
+name: Firefly III MCP
+version: "1.2.1"
+tagline: Connect Claude to your Firefly III
+description: >-
+  An MCP (Model Context Protocol) server for the Firefly III app, so AI
+  assistants like Claude can read and manage your finances. It exposes all of
+  Firefly III's operations through a handful of tools split by risk (query,
+  mutate, destructive) and uses a built-in OAuth 2.1 login.
+
+
+  Setup: (1) Install Firefly III and create your account. In Firefly III go to
+  Options > Profile > OAuth and create a Personal Access Token. (2) Save the
+  token to a file named firefly-token in this app's data folder
+  (~/umbrel/app-data/marg-firefly-mcp/data/firefly-token) and restart the app.
+  (3) Serve this app over public HTTPS, for example with a Cloudflare Tunnel to
+  port 3040, on the hostname set in MCP_RESOURCE_URL. (4) In Claude, add a
+  custom connector with the URL https://<your hostname>/mcp and sign in with
+  the password Umbrel shows for this app.
+
+
+  Anyone who knows that password can use every scope, including writes and
+  deletes. For a read-only connection, create the Firefly III token with
+  read-only access.
+developer: Yakup Emre Yerli
+website: https://github.com/yakupemreyerli/mcp-firefly-iii
+dependencies:
+  - firefly-iii
+repo: https://github.com/yakupemreyerli/mcp-firefly-iii
+support: https://github.com/yakupemreyerli/mcp-firefly-iii/issues
+port: 3040
+gallery: []
+path: ""
+defaultUsername: ""
+deterministicPassword: true
+releaseNotes: >-
+  Firefly III MCP server v1.2.1. Full notes:
+  https://github.com/yakupemreyerli/mcp-firefly-iii/releases/tag/v1.2.1
+submitter: Marguements
+submission: https://github.com/Marguements/Umbrel-App-Collection
