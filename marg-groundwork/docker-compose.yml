@@ -10,8 +10,8 @@ services:
       PROXY_AUTH_ADD: "false"
 
   web:
-    # Dev build from the Groundwork branch; switch to :<version>@sha256:<digest> at v0.1.0 (M5).
-    image: ghcr.io/marguements/groundwork:sha-f06afad@sha256:16ae2659487a280a7a6ab24b0d825aa062ff832313e413a9040b52b813cc5ab7
+    # Test release 2026-11-23, source e5a1f761 (main); verified public linux/amd64 image.
+    image: ghcr.io/marguements/groundwork:0.1.0-test.20261123.1@sha256:22b55a244138e587ff72e2aede3075c8603cc64cfbb0b4388b90bc98bb813f2e
     restart: on-failure
     init: true
     stop_grace_period: 1m
