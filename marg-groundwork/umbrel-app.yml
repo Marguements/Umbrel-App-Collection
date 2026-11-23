@@ -1,0 +1,24 @@
+manifestVersion: 1.1
+id: marg-groundwork
+category: productivity
+name: Groundwork
+version: "0.1.0"
+tagline: Self-hosted GTD with habit coaching
+description: >-
+  A GTD task manager with an offline-first Android app, a web GUI, sync and a
+  66-day habit program that coaches you into the method. Create your account
+  on first launch.
+developer: Marguements
+website: https://github.com/Marguements/Groundwork
+dependencies: []
+repo: https://github.com/Marguements/Groundwork
+support: https://github.com/Marguements/Groundwork/issues
+port: 3050
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+releaseNotes: >-
+  Development build of Groundwork (scaffold only: health check and placeholder page).
+submitter: Marguements
+submission: https://github.com/Marguements/Umbrel-App-Collection
