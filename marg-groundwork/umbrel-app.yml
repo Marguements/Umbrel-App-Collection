@@ -2,7 +2,7 @@ manifestVersion: 1.1
 id: marg-groundwork
 category: productivity
 name: Groundwork
-version: "0.1.0-test.20261123.1"
+version: "0.1.0"
 tagline: Self-hosted GTD with habit coaching
 description: >-
   A GTD task manager with an offline-first Android app, a web GUI, sync and a
@@ -19,9 +19,11 @@ path: ""
 defaultUsername: ""
 defaultPassword: ""
 releaseNotes: >-
-  Test release from main at e5a1f761. Adds the GTD web interface, capture and Inbox processing,
-  lists and Projects, the habit program, Markdown/JSON import and export, device pairing,
-  Android sync, live web updates and conflict handling. Docker image is pinned by digest
-  and verified on linux/amd64. Android test APK is available in the matching GitHub release.
+  Groundwork 0.1.0, built from main at ea726cc. GTD web interface and Android
+  app with capture, Inbox processing, lists and Projects; sync with QR phone
+  pairing, live web updates and conflict undo; the 66-day habit program with
+  Daily Close, Weekly Review and ritual reminders; Markdown/JSON export and
+  nightly backups; and an optional MCP connector for Claude (off by default,
+  see Settings > Claude connector).
 submitter: Marguements
 submission: https://github.com/Marguements/Umbrel-App-Collection

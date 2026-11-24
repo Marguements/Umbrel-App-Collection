@@ -10,8 +10,8 @@ services:
       PROXY_AUTH_ADD: "false"
 
   web:
-    # Test release 2026-11-23, source e5a1f761 (main); verified public linux/amd64 image.
-    image: ghcr.io/marguements/groundwork:0.1.0-test.20261123.1@sha256:22b55a244138e587ff72e2aede3075c8603cc64cfbb0b4388b90bc98bb813f2e
+    # 0.1.0, source ea726cc (main); public linux/amd64 image pinned by digest.
+    image: ghcr.io/marguements/groundwork:sha-ea726cc@sha256:71b23f01b6b9ff18a9d302b70fdcff4a72583a2db37ba3ba1f001a65c7d92014
     restart: on-failure
     init: true
     stop_grace_period: 1m
