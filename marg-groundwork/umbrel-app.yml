@@ -2,7 +2,7 @@ manifestVersion: 1.1
 id: marg-groundwork
 category: productivity
 name: Groundwork
-version: "0.2.0"
+version: "0.2.1"
 tagline: Self-hosted GTD with habit coaching
 description: >-
   A GTD task manager with an offline-first Android app, a web GUI, sync and a
@@ -19,11 +19,7 @@ path: ""
 defaultUsername: ""
 defaultPassword: ""
 releaseNotes: >-
-  Groundwork 0.2.0, built from main at fb11970. A calmer, redesigned web
-  interface: four places (Today, Inbox, Lists, Reflect) instead of thirteen
-  menu items, a capture field always at hand, Today with your three and what
-  fits right now, a guided Process mode with an optional quick mode, progress
-  shown as layers and 14-day consistency instead of streaks, and light and dark
-  themes. No data changes; your lists and program carry over as they are.
+  Groundwork 0.2.1, built from main at 970c7a6. Fixes the capture box in the
+  guided flows (mind sweep, Daily Close and Weekly Review). No data changes.
 submitter: Marguements
 submission: https://github.com/Marguements/Umbrel-App-Collection
