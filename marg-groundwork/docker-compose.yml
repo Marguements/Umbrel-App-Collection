@@ -10,8 +10,8 @@ services:
       PROXY_AUTH_ADD: "false"
 
   web:
-    # 0.1.0, source ea726cc (main); public linux/amd64 image pinned by digest.
-    image: ghcr.io/marguements/groundwork:sha-ea726cc@sha256:71b23f01b6b9ff18a9d302b70fdcff4a72583a2db37ba3ba1f001a65c7d92014
+    # 0.2.0, source fb11970 (main); public linux/amd64 image pinned by digest.
+    image: ghcr.io/marguements/groundwork:sha-fb11970@sha256:66954693125fed6854f7258a57a30f4b2fa1b8c07424633969022cdb2048b1b9
     restart: on-failure
     init: true
     stop_grace_period: 1m
