@@ -2,7 +2,7 @@ manifestVersion: 1.1
 id: marg-groundwork
 category: productivity
 name: Groundwork
-version: "0.2.1"
+version: "0.2.2"
 tagline: Self-hosted GTD with habit coaching
 description: >-
   A GTD task manager with an offline-first Android app, a web GUI, sync and a
@@ -19,7 +19,10 @@ path: ""
 defaultUsername: ""
 defaultPassword: ""
 releaseNotes: >-
-  Groundwork 0.2.1, built from main at 970c7a6. Fixes the capture box in the
-  guided flows (mind sweep, Daily Close and Weekly Review). No data changes.
+  Groundwork 0.2.2: safer updates. Before changing the database layout the
+  server now saves a snapshot to data/backups, takes a first backup as soon as
+  it starts, and refuses to start with an empty database if older data or
+  backups are present. See docs/BACKUP.md for restoring, and copy backups off
+  the Umbrel: uninstalling the app deletes them too. Built from main at bd323f5.
 submitter: Marguements
 submission: https://github.com/Marguements/Umbrel-App-Collection
