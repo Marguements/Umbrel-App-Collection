@@ -11,7 +11,7 @@ services:
 
   web:
     # 0.2.2 (upgrade safety), source bd323f5 (main); public linux/amd64 image pinned by digest.
-    image: ghcr.io/marguements/groundwork:sha-bd323f5@sha256:f6cc6785d81058a8485621b6d71191f91830b2fae46460300379710ecbb4a4e4
+    image: ghcr.io/marguements/groundwork:sha-464ed8f@sha256:118e7c3e9574929b3d171dbc5e8134ca73b4dfcc2334510250309892fb8c82eb
     restart: on-failure
     init: true
     stop_grace_period: 1m
