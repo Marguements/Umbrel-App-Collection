@@ -1,5 +1,11 @@
 version: "3.7"
 
+# Layout (follows playit.gg's "vanilla Bedrock + WaterdogPE" NetherNet guide):
+#   players -> playit.gg NetherNet tunnel -> playit agent (marg-playit, host network)
+#           -> WaterdogPE on 0.0.0.0:19132 (host network, NXS signaling to playit)
+#           -> Bedrock Dedicated Server on 127.0.0.1:19142 (host network, loopback only)
+# Both game services use host networking so they share loopback, as in playit's guide.
+
 services:
   app_proxy:
     environment:
@@ -23,9 +29,7 @@ services:
     stop_grace_period: 1m
     stdin_open: true
     tty: true
-    ports:
-      # Bedrock is UDP only. Forward UDP 19132 on the router to this Umbrel.
-      - "19132:19132/udp"
+    network_mode: host
     environment:
       EULA: "TRUE"
       VERSION: "LATEST"
@@ -35,11 +39,67 @@ services:
       GAMEMODE: "survival"
       DIFFICULTY: "normal"
       MAX_PLAYERS: "10"
-      ONLINE_MODE: "true"
       ALLOW_CHEATS: "false"
       VIEW_DISTANCE: "10"
       TICK_DISTANCE: "4"
-      # Set to "true" and add players to allowlist.json in data/ to make it invite-only.
+      # Only WaterdogPE talks to the server, over loopback. WaterdogPE checks Xbox
+      # sign-in, so online-mode is off here (playit's required settings).
+      SERVER_IP: "127.0.0.1"
+      SERVER_PORT: "19142"
+      SERVER_PORT_V6: "19143"
+      SERVER_UDP_PORTS: "19142"
+      TRANSPORT: "nethernet"
+      ENABLE_LAN_VISIBILITY: "false"
+      ONLINE_MODE: "false"
       ALLOW_LIST: "false"
     volumes:
       - ${APP_DATA_DIR}/data:/data
+
+  waterdog:
+    # WaterdogPE proxy, Java 21. The latest Waterdog.jar (with NetherNet/NXS
+    # support) is downloaded on every start; the last good copy is kept.
+    image: eclipse-temurin:21-jre-alpine
+    restart: unless-stopped
+    stop_grace_period: 30s
+    stdin_open: true
+    tty: true
+    network_mode: host
+    working_dir: /waterdog
+    environment:
+      TZ: America/Chicago
+      JAVA_OPTS: "-Xms256M -Xmx1G"
+      # The playit tunnel's "UDP game traffic address". Change it in the app
+      # settings if the tunnel changes.
+      PLAYIT_ADVERTISE_ADDRESS: "147.185.221.217:17630"
+      # The playit NXS token is a secret and is never stored in this repo. Set
+      # NXS_TOKEN in the app's Umbrel settings (waterdog service), or write it to
+      # data/waterdog/nxs-token, then restart the app.
+    volumes:
+      - ${APP_DATA_DIR}/data/waterdog:/waterdog
+      - ${APP_DATA_DIR}/waterdog/config.template.yml:/template/config.yml:ro
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        set -u
+        if [ -n "$${NXS_TOKEN:-}" ]; then
+          umask 077
+          printf '%s' "$$NXS_TOKEN" > nxs-token
+        fi
+        while [ ! -s nxs-token ]; do
+          echo "No playit NXS token yet. Set NXS_TOKEN in the app settings or write it to data/waterdog/nxs-token, then restart the app."
+          sleep 300
+        done
+        if wget -q -O Waterdog.jar.new https://github.com/WaterdogPE/WaterdogPE/releases/download/latest/Waterdog.jar && [ -s Waterdog.jar.new ]; then
+          mv Waterdog.jar.new Waterdog.jar
+        else
+          rm -f Waterdog.jar.new
+          echo "Could not download Waterdog.jar; using the existing copy if there is one."
+        fi
+        if [ ! -s Waterdog.jar ]; then
+          echo "No Waterdog.jar available; retrying in 60 seconds."
+          sleep 60
+          exit 1
+        fi
+        sed "s|__ADVERTISE_ADDRESS__|$$PLAYIT_ADVERTISE_ADDRESS|" /template/config.yml > config.yml
+        exec java $$JAVA_OPTS -jar Waterdog.jar

@@ -1,0 +1,36 @@
+# Rendered into data/waterdog/config.yml on every start; edit this template
+# (or the app's environment settings) rather than the generated file.
+# Settings from playit.gg's Configuration help, WaterdogPE tab.
+listener:
+  motd: ArgueLab Bedrock
+  name: ArgueLab Bedrock
+  priorities:
+    - vanilla
+  host: 0.0.0.0:19132
+  transport: nethernet
+  max_players: 10
+
+servers:
+  vanilla:
+    address: 127.0.0.1:19142
+    public_address: 127.0.0.1:19142
+    server_type: nethernet
+
+nethernet:
+  # 0 = use the listener port (19132), which the playit tunnel points to.
+  webrtc_port: 0
+  signaling:
+    mode: nxs
+    advertise_addresses:
+      - __ADVERTISE_ADDRESS__
+    stun_discovery: false
+    nxs:
+      # Read from data/waterdog/nxs-token so the secret stays out of this file.
+      token: file:nxs-token
+      endpoint: https://nethernet.playit.gg
+
+online_mode: true
+upstream_encryption: true
+use_login_extras: false
+enable_edu_features: false
+config_version: 3
