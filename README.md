@@ -16,6 +16,7 @@ A personal [Umbrel community app store](https://github.com/getumbrel/umbrel-comm
 | [BookOrbit](marg-bookorbit) | 3020 | Ebook, audiobook and comic library and reader. The setup token is the password Umbrel shows. Books go in Home > Books. |
 | [Firefly III MCP](marg-firefly-mcp) | 3040 | MCP server for the official Firefly III app, so Claude can use your finances. Needs a Firefly personal access token saved to `data/firefly-token`, plus public HTTPS (e.g. Cloudflare Tunnel). Sign in with the password Umbrel shows. |
 | [Groundwork](marg-groundwork) | 3050 | Self-hosted GTD with an Android app and habit coaching. Development build. |
+| [Minecraft Bedrock Server](marg-minecraft-bedrock) | 3060 (info page), UDP 19132 (game) | Bedrock Dedicated Server. Forward UDP 19132 on the router for outside players. |
 
 ## Adding an app
 

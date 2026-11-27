@@ -1,0 +1,29 @@
+manifestVersion: 1.1
+id: marg-minecraft-bedrock
+category: gaming
+name: Minecraft Bedrock Server
+version: "1.0.0"
+tagline: Dedicated Minecraft Bedrock Edition server
+description: >-
+  Runs the official Minecraft Bedrock Dedicated Server (via the
+  itzg/minecraft-bedrock-server image) so phones, tablets, consoles and
+  Windows players can join a world hosted on your Umbrel. Players connect on
+  UDP port 19132. To play from outside your home network, forward UDP 19132
+  on your router to this Umbrel and point a DNS-only hostname at your public
+  IP. The world and server settings are stored in the app's data folder.
+  By installing you accept the Minecraft EULA (https://aka.ms/MinecraftEULA).
+developer: Marguements
+website: https://github.com/itzg/docker-minecraft-bedrock-server
+dependencies: []
+repo: https://github.com/itzg/docker-minecraft-bedrock-server
+support: https://github.com/Marguements/Umbrel-App-Collection/issues
+port: 3060
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+releaseNotes: >-
+  First release. Survival, normal difficulty, up to 10 players, server
+  auto-updates to the latest Bedrock version on restart.
+submitter: Marguements
+submission: https://github.com/Marguements/Umbrel-App-Collection
