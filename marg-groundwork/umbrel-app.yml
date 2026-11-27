@@ -3,11 +3,13 @@ id: marg-groundwork
 category: productivity
 name: Groundwork
 version: "0.2.4"
-tagline: Self-hosted GTD with habit coaching
+tagline: Self-hosted task manager with habit coaching
 description: >-
-  A GTD task manager with an offline-first Android app, a web GUI, sync and a
-  66-day habit program that coaches you into the method. Create your account
-  on first launch.
+  A calm task manager based on the Getting Things Done® method, with an
+  offline-first Android app, a web GUI, sync and a 66-day coaching program.
+  Create your account on first launch. GTD® and Getting Things Done® are
+  registered trademarks of the David Allen Company; Groundwork is not
+  affiliated with or endorsed by it.
 developer: Marguements
 website: https://github.com/Marguements/Groundwork
 dependencies: []
