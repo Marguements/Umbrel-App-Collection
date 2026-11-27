@@ -1,0 +1,29 @@
+manifestVersion: 1.1
+id: marg-playit
+category: networking
+name: playit.gg Agent
+version: "2.0.2"
+tagline: Expose game servers without port forwarding
+description: >-
+  Runs the official playit.gg agent so game servers and other services on
+  your Umbrel can be reached from the internet through playit.gg tunnels,
+  without opening ports on your router. Works with the Minecraft Bedrock
+  Server app (NetherNet or RakNet). After installing, add your agent secret
+  key as the SECRET_KEY environment variable in this app's settings (or write
+  it to data/secret in the app's data folder) and restart the app. Manage
+  tunnels at playit.gg.
+developer: Developed Methods LLC (playit.gg)
+website: https://playit.gg
+dependencies: []
+repo: https://github.com/playit-cloud/playit-agent
+support: https://github.com/Marguements/Umbrel-App-Collection/issues
+port: 3070
+gallery: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+releaseNotes: >-
+  First release, tracking the latest playit agent (2.x), which supports
+  Bedrock NetherNet tunnels.
+submitter: Marguements
+submission: https://github.com/Marguements/Umbrel-App-Collection

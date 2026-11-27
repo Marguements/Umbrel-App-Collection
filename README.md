@@ -17,6 +17,7 @@ A personal [Umbrel community app store](https://github.com/getumbrel/umbrel-comm
 | [Firefly III MCP](marg-firefly-mcp) | 3040 | MCP server for the official Firefly III app, so Claude can use your finances. Needs a Firefly personal access token saved to `data/firefly-token`, plus public HTTPS (e.g. Cloudflare Tunnel). Sign in with the password Umbrel shows. |
 | [Groundwork](marg-groundwork) | 3050 | Self-hosted GTD with an Android app and habit coaching. Development build. |
 | [Minecraft Bedrock Server](marg-minecraft-bedrock) | 3060 (info page), UDP 19132 (game) | Bedrock Dedicated Server. Forward UDP 19132 on the router for outside players. |
+| [playit.gg Agent](marg-playit) | 3070 (info page) | playit.gg tunnel agent on host networking. Put the agent secret in the `SECRET_KEY` app setting or `data/secret`; never commit it. |
 
 ## Adding an app
 

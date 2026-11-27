@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<service-name>_1
+      APP_HOST: marg-playit_web_1
+      APP_PORT: 80
+      PROXY_AUTH_ADD: "false"
+
+  # Small info page so the app has something to open from the Umbrel dashboard.
+  web:
+    image: nginx:1.27-alpine
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/www:/usr/share/nginx/html:ro
+
+  agent:
+    # Official playit.gg agent (v2.x). Host networking so tunnels can reach any
+    # port published on this Umbrel, e.g. the Minecraft Bedrock server on 19132.
+    image: ghcr.io/playit-cloud/playit-agent:latest
+    restart: unless-stopped
+    network_mode: host
+    stop_grace_period: 30s
+    volumes:
+      - ${APP_DATA_DIR}/data:/var/lib/playit
+    # The agent secret is never stored in this repo. Provide it either as a
+    # SECRET_KEY environment variable in the app's Umbrel settings, or as the
+    # only line of the file data/secret in this app's data folder.
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        if [ -z "$${SECRET_KEY:-}" ] && [ -s /var/lib/playit/secret ]; then
+          export SECRET_KEY_FILE=/var/lib/playit/secret
+        fi
+        while [ -z "$${SECRET_KEY:-}" ] && [ -z "$${SECRET_KEY_FILE:-}" ]; do
+          echo "No playit secret key yet. Set SECRET_KEY in the app settings or write it to data/secret, then restart the app."
+          sleep 300
+          [ -s /var/lib/playit/secret ] && export SECRET_KEY_FILE=/var/lib/playit/secret
+        done
+        exec /playit/entrypoint.sh
