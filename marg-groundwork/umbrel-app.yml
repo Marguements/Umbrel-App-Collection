@@ -2,7 +2,7 @@ manifestVersion: 1.1
 id: marg-groundwork
 category: productivity
 name: Groundwork
-version: "0.2.3"
+version: "0.2.4"
 tagline: Self-hosted GTD with habit coaching
 description: >-
   A GTD task manager with an offline-first Android app, a web GUI, sync and a
@@ -19,10 +19,10 @@ path: ""
 defaultUsername: ""
 defaultPassword: ""
 releaseNotes: >-
-  New Groundwork logo and app icons across the web app and browser tab.
-  Deleted items now go to a Trash for 30 days and can be restored (undo delete).
-  Simple recurring tasks: completing a repeating task schedules its next occurrence.
-  This update adds a database column (migration 0005); an automatic snapshot is
-  saved to data/backups before migrating.
+  Every feature is open from day one: processing the Inbox, Daily Close, Weekly
+  Review and the rest no longer wait for a later phase. The habit program is now
+  optional coaching (daily tips and nudges) with a quick-start tour, a Coaching
+  tips switch and Restart program in Settings. No database changes. The Android
+  app (v0.2.4 APK on GitHub) adds tapping an item to view and edit it.
 submitter: Marguements
 submission: https://github.com/Marguements/Umbrel-App-Collection
