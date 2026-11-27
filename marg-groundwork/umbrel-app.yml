@@ -2,7 +2,7 @@ manifestVersion: 1.1
 id: marg-groundwork
 category: productivity
 name: Groundwork
-version: "0.2.4"
+version: "0.2.5"
 tagline: Self-hosted task manager with habit coaching
 description: >-
   A calm task manager based on the Getting Things Done® method, with an
@@ -21,10 +21,10 @@ path: ""
 defaultUsername: ""
 defaultPassword: ""
 releaseNotes: >-
-  Every feature is open from day one: processing the Inbox, Daily Close, Weekly
-  Review and the rest no longer wait for a later phase. The habit program is now
-  optional coaching (daily tips and nudges) with a quick-start tour, a Coaching
-  tips switch and Restart program in Settings. No database changes. The Android
-  app (v0.2.4 APK on GitHub) adds tapping an item to view and edit it.
+  Groundwork now describes itself as based on the Getting Things Done method,
+  with a trademark notice under Settings, About, and a reworded first coaching
+  lesson. No database changes. The Android app (v0.2.5 APK on GitHub) fixes
+  Process swipes, adds a Today option, a pinned Save and next button, and makes
+  projects easy to create from the editor, Process and Lists.
 submitter: Marguements
 submission: https://github.com/Marguements/Umbrel-App-Collection
